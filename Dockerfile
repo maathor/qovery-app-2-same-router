@@ -1,12 +1,13 @@
-FROM golang:latest
+FROM node:13-alpine
 
-ADD . /go/src/temp
+RUN mkdir -p /usr/src/app
 
-RUN rm -rf /go/src/temp/static
+WORKDIR /usr/src/app
 
-RUN ls /go/src/temp
+COPY . .
 
-RUN go get "github.com/go-sql-driver/mysql"
-RUN go get "github.com/gin-gonic/gin"
+RUN npm install
 
-EXPOSE 8080
+EXPOSE 3000
+
+CMD node ./bin/www
